@@ -1,0 +1,43 @@
+.plan/
+.design/
+.knowledge/
+
+# Model weights
+pretrained_models/
+*.pth
+*.pt
+*.onnx
+
+# Dataset
+data/
+SoccerNetGS/
+
+# Outputs
+outputs/
+*.mp4
+*.avi
+
+# Virtual environments and Python
+.venv/
+__pycache__/
+*.pyc
+
+# Large files / sample clips
+samples/
+
+# Colab artifacts
+.ipynb_checkpoints/
+
+# Hydra run outputs
+outputs/sn-gamestate/
+
+# Tracker states
+states/*.pklz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cloned dependency repos
+sn-gamestate/
+tracklab/
