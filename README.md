@@ -55,6 +55,34 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+## Pipeline Stages
+
+The GSR baseline runs 9 pipeline stages in sequence. On Colab, jersey number detection is **skipped** due to mmcv incompatibility.
+
+| # | Stage | Module | Description | Colab |
+|---|-------|--------|-------------|-------|
+| 1 | `bbox_detector` | YOLOv11 (Ultralytics) | Detects player & ball bounding boxes per frame | ✅ |
+| 2 | `reid` | PRTReid | Extracts appearance embeddings for re-identification | ✅ |
+| 3 | `track` | StrongSORT + BPBreid | Multi-object tracking with Re-ID association | ✅ |
+| 4 | `pitch` | NBW calibration | Detects pitch lines/corners for homography | ✅ |
+| 5 | `calibration` | NBW calibration | Maps pixel coordinates to real-world pitch coordinates | ✅ |
+| 6 | `jersey_number_detect` | MMOCR | Reads jersey numbers from player crops | ❌ Skipped |
+| 7 | `tracklet_agg` | Voting + jersey numbers | Aggregates tracklets, assigns roles (GK, player) | ✅ |
+| 8 | `team` | K-means on embeddings | Clusters players into two teams by appearance | ✅ |
+| 9 | `team_side` | Mean position | Determines which team is attacking left/right | ✅ |
+
+### Why jersey number detection is skipped
+
+MMOCR depends on mmcv, which has no pre-built wheels for Colab's Python 3.12 + torch 2.x. Building from source takes too long. The pipeline runs without it by excluding the module:
+
+```bash
+!tracklab -cn soccernet \
+    ~modules.jersey_number_detect \
+    pipeline='[bbox_detector,reid,track,pitch,calibration,tracklet_agg,team,team_side]'
+```
+
+**Impact:** Without jersey numbers, the `tracklet_agg` stage uses only appearance embeddings (no number-based disambiguation). Team assignment via K-means still works. This is acceptable for initial testing.
+
 ## References
 
 - **SoccerNet GSR Paper:** [Game State Reconstruction](https://github.com/SoccerNet/sn-gamestate)
