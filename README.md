@@ -35,23 +35,17 @@ Analyze outputs               ↑                    ↓
 
 ## Quick Start (Colab)
 
-```python
-# Cell 1: Clone repo and install
-!git clone https://github.com/<user>/<repo>.git
-%cd <repo>
-!pip install -r requirements_colab.txt
+Open the notebook directly in Colab from GitHub:
 
-# Cell 2: Clone sn-gamestate and install
-!git clone https://github.com/SoccerNet/sn-gamestate.git
-!git clone https://github.com/TrackingLaboratory/tracklab.git
-%cd sn-gamestate
-!pip install -e .
-!pip install mim
-!mim install mmcv==2.0.1
-
-# Cell 3: Run baseline
-!tracklab -cn soccernet
 ```
+https://colab.research.google.com/github/Moiz005/SoccerVision-Player-Tracking-3D-Reconstruction/blob/main/notebooks/inference_colab.ipynb
+```
+
+> **Note:** Colab aggressively caches GitHub notebooks. If the notebook shows an old version after you push updates, add a cache-buster to the URL:
+> ```
+> https://colab.research.google.com/github/Moiz005/SoccerVision-Player-Tracking-3D-Reconstruction/blob/main/notebooks/inference_colab.ipynb?t=1
+> ```
+> Increment the `?t=` number each time you push changes. Alternatively, close the Colab tab entirely and open the URL fresh.
 
 ## Local Development (analysis only, no GPU needed)
 
