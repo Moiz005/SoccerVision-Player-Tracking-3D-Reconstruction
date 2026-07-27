@@ -1,11 +1,26 @@
 # Custom video config for SoccerNet GSR — WITHOUT jersey number detection.
 #
-# Jersey number detection (MMOCR) is excluded because OpenMMLab is
-# incompatible with Colab's Python 3.12 + torch 2.x environment.
+# Use with the custom video adapter (src/inference/run_gsr.py):
+#   1. Run prepare_custom_video(video_path, data_dir, video_name)
+#      to extract frames + generate INI stubs
+#   2. Run the pipeline with this config:
+#        tracklab -cn soccernet_custom --config-dir configs \
+#          ~modules.jersey_number_detect \
+#          modules/tracklet_agg=voting_role_only
 #
-# The tracklet_agg default (voting_role_jn) expects jersey_number columns.
-# Override it at runtime with modules/tracklet_agg=voting_role_only
-# AFTER generating the voting_role_only.yaml config file (see notebook).
+# Details:
+# - Jersey number detection (MMOCR) is excluded because OpenMMLab is
+#   incompatible with Colab's Python 3.12 + torch 2.x environment.
+# - The custom_video dataset config (configs/dataset/custom_video.yaml)
+#   reuses the existing SoccerNetGameState loader via structure mimicry.
+# - dataset.dataset_path points to data/custom_video/ which should contain:
+#     valid/{video_name}/img1/000001.jpg ...
+#     valid/{video_name}/seqinfo.ini
+#     valid/{video_name}/gameinfo.ini
+#     valid/{video_name}/gt/gt.txt (empty)
+# - The tracklet_agg default (voting_role_jn) expects jersey_number columns.
+#   Override at runtime with modules/tracklet_agg=voting_role_only AFTER
+#   generating the voting_role_only.yaml config file (see notebook cell).
 
 defaults:
   - dataset: custom_video

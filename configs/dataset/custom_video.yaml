@@ -1,0 +1,17 @@
+# Dataset config for custom (user-uploaded) video clips.
+#
+# Uses the existing SoccerNetGameState loader unchanged — we just point it
+# at our custom data directory via dataset.dataset_path (set in the parent
+# config or overridden at runtime).
+#
+# Structure expected by this loader:
+#   {dataset_path}/valid/{video_name}/img1/000001.jpg ...
+#   {dataset_path}/valid/{video_name}/seqinfo.ini
+#   {dataset_path}/valid/{video_name}/gameinfo.ini
+#   {dataset_path}/valid/{video_name}/gt/gt.txt  (empty)
+#
+# The `prepare_custom_video()` function in src/inference/run_gsr.py creates
+# this structure automatically.
+
+_target_: sn_gamestate.dataset.SoccerNetGameState
+splits: ["valid"]
