@@ -1,6 +1,7 @@
 .plan/
 .design/
 .knowledge/
+gamestate-readme.md
 
 # Model weights
 pretrained_models/
