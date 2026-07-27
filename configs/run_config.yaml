@@ -1,7 +1,0 @@
-# Runtime configuration for the pipeline.
-# git pull updates this file on disk. The notebook reads it at runtime,
-# so changes take effect on the next cell run — no tab refresh needed.
-
-# Number of frames to process. -1 = all frames.
-# Set to e.g. 100 to only process the first 100 frames (useful for testing).
-nframes: -1
