@@ -53,7 +53,10 @@ data_dir: "${project_dir}/data"
 model_dir: "${project_dir}/pretrained_models"
 
 modules:
-  bbox_detector: {batch_size: 4}
+  bbox_detector:
+    batch_size: 4
+    cfg:
+      min_confidence: 0.15    # default is 0.4; lowered for custom video quality
   reid: {batch_size: 32}
   track: {batch_size: 32}
   pitch: {batch_size: 1}
